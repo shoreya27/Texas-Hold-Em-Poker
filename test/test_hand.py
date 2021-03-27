@@ -142,3 +142,22 @@ class TestHand(unittest.TestCase):
             hand.best_rank(),
             "Flush"
         )
+    
+    def test_to_figure_fullhouse_is_best_rank(self):
+        '''
+        full house is when there is 3 card of same rank
+        and 2 card of same rank
+        1 "three of a kind" and 1 "pair"
+        '''
+        cards = [
+            Card(rank = "4", suite = "hearts"),
+            Card(rank = "4", suite = "diamonds"),
+            Card(rank = "4", suite = "clubs"),
+            Card(rank = "2", suite = "diamonds"),
+            Card(rank = "2", suite = "spades"),
+        ]
+        hand = Hand(cards)
+        self.assertEqual(
+            hand.best_rank(),
+            "Full house"
+        )
