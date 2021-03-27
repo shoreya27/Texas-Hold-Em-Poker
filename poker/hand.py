@@ -18,6 +18,7 @@ class Hand():
     @property
     def _best_rank_validators(self):
         return (
+            ("Flush", self._flush),
             ('Straight', self._straight),
             ('Three of kind', self._three_of_kind),
             ('Two Pair', self._two_pair),
@@ -36,6 +37,15 @@ class Hand():
             name, validator = rank
             if validator():
                 return name
+    
+    def _flush(self):
+        suite_count_dict = self.create_suite_count_dict
+        suit_count_dict = {
+            suite:count
+            for suite, count in suite_count_dict.items()
+            if count >= 5
+        }
+        return len(suit_count_dict) == 1
 
     def _straight(self):
         if len(self.cards) < 5:
@@ -70,6 +80,19 @@ class Hand():
             if rank_count == count
         }
 
+    @property
+    def create_suite_count_dict(self):
+        card_suite_count = dict()
+        for card in self.cards:
+            '''
+            setdefault(key, default value) sets the key
+            to default value if that key is not
+            present in dict
+            '''
+            card_suite_count.setdefault(card.suite, 0)
+            card_suite_count[card.suite] += 1
+        
+        return card_suite_count        
 
     @property
     def create_rankcount_dict(self):
