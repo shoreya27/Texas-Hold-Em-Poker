@@ -25,6 +25,18 @@ class TestHand(unittest.TestCase):
 
         hand = Hand(cards)
         self.assertEqual(
-            hand.get_highest_rank_card(), 
+            hand.best_rank(), 
             "biggest card"
+        )
+    
+    def test_hand_has_a_pair(self):
+        cards = [
+            Card(rank = "Ace", suite="clubs"),
+            Card(rank = "Ace", suite = "spades")
+        ]
+
+        hand = Hand(cards)
+        self.assertEqual(
+            hand.best_rank(), 
+            "Pair"
         )
