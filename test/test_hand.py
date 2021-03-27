@@ -40,3 +40,21 @@ class TestHand(unittest.TestCase):
             hand.best_rank(), 
             "Pair"
         )
+    
+    def test_to_figure_hand_has_double_pair(self):
+        '''
+        Note to have a hand 2 pairs=4cards,
+        so that can only happen after a Flop stage
+        '''
+        cards = [
+            Card(rank = "Ace", suite = "hearts"),
+            Card(rank = "Ace", suite = "clubs"),
+            Card(rank = "5", suite = "spades"),
+            Card(rank = "King", suite = "hearts"),
+            Card(rank = "King", suite = "clubs")
+        ]
+        hand = Hand(cards)
+        self.assertEqual(
+            hand.best_rank(),
+            "double pair"
+        )
