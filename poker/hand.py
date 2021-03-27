@@ -12,11 +12,13 @@ to add more
 
 class Hand():
     def __init__(self, cards):
+        cards.sort()
         self.cards = cards
 
     @property
     def _best_rank_validators(self):
         return (
+            ('Straight', self._straight),
             ('Three of kind', self._three_of_kind),
             ('Two Pair', self._two_pair),
             ('Pair', self._pair),
@@ -35,6 +37,16 @@ class Hand():
             if validator():
                 return name
 
+    def _straight(self):
+        if len(self.cards) < 5:
+            return False
+        rank_indexes = [card.rank_index for card in self.cards]
+        starting_end = rank_indexes[0]
+        ending       = rank_indexes[-1] + 1
+        rank_indexes_range = list(
+                            range(starting_end,ending)
+                                )
+        return rank_indexes == rank_indexes_range
 
     def _three_of_kind(self):
         third_rank_of_same_kind = self._filter_rank_count_dict(3)

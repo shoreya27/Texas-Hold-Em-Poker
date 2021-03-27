@@ -76,3 +76,54 @@ class TestHand(unittest.TestCase):
             hand.best_rank(),
             "Three of kind"
         )
+    
+    '''
+    Before figuring the best rank to straight
+    I want to sort the cards because straight rank
+    is sequence order of rank eg 5 , 6 ,7 ,8 ,9
+    '''
+    def test_hand_cards_are_sorted(self):
+        cards = [
+            Card(rank = "5", suite = "hearts"),
+            Card(rank = "Ace", suite = "clubs"),
+            Card(rank = "King", suite = "clubs"),
+        ]
+
+        hand = Hand(cards)
+        self.assertEqual(
+            hand.cards,
+        [
+            Card(rank = "5", suite = "hearts"),
+            Card(rank = "King", suite = "clubs"),
+            Card(rank = "Ace", suite = "clubs")
+
+        ]
+        )
+    
+    def test_to_figure_hand_has_a_straight(self):
+
+        cards = [
+            Card(rank = "5", suite = "diamonds"),
+            Card(rank = "6", suite = "hearts"),
+            Card(rank = "7", suite = "clubs"),
+            Card(rank = "8", suite = "spades"),
+            Card(rank = "9", suite = "diamonds")
+        ]
+
+        hand = Hand(cards)
+        self.assertEqual(
+            hand.best_rank(),
+            "Straight"
+        )
+    
+    def test_2_cards_cant_be_straight(self):
+
+        cards = [
+            Card(rank = "5", suite = "diamonds"),
+            Card(rank = "6", suite = "hearts"),
+        ]
+        hand = Hand(cards)
+        self.assertEqual(
+            hand.best_rank(),
+            "Highest card"
+        )

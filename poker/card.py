@@ -15,6 +15,7 @@ class Card():
             raise ValueError(f"sorry invalid suite name provided.")
         self.rank = rank
         self.suite = suite
+        self.rank_index = self.RANKS.index(rank)
     
     def __str__(self):
         return f"{self.rank} of {self.suite}"
@@ -32,3 +33,6 @@ class Card():
     
     def __eq__(self, other):
         return self.rank == other.rank and self.suite == other.suite
+    
+    def __lt__(self, other):
+        return self.rank_index < other.rank_index

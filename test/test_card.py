@@ -1,5 +1,6 @@
 from logging import setLoggerClass
 import unittest
+from unittest import suite
 from poker.card import Card
 
 class TestCardClass(unittest.TestCase):
@@ -12,6 +13,12 @@ class TestCardClass(unittest.TestCase):
         card = Card(rank = "2", suite = "spades")
         self.assertEqual(card.suite, "spades")
     
+    def test_card_has_rank_index(self):
+        card = Card(rank = "5", suite= "spades")
+        self.assertEqual(
+            card.rank_index,
+            3
+        )
 
     def test_string_representation_of_card(self):
         card = Card(rank = "2", suite= "clubs")
@@ -54,4 +61,15 @@ class TestCardClass(unittest.TestCase):
         self.assertEqual(
             Card.create_52_cards()[-1],
             Card(rank = "Ace", suite= "hearts")
+        )
+    
+    def test_which_card_is_greater(self):
+        ace_of_spades = Card(rank = "Ace", suite = "clubs")
+        jack_of_diamonds = Card(rank = "Jack", suite = "diamonds")
+
+        evaluate = jack_of_diamonds < ace_of_spades 
+
+        self.assertEqual(
+            evaluate,
+            True
         )
