@@ -58,3 +58,21 @@ class TestHand(unittest.TestCase):
             hand.best_rank(),
             "double pair"
         )
+    
+    def test_to_figure_hand_has_three_of_same_kind(self):
+        '''
+        Note: Always first write your code even
+        if duplicacy is occurring .
+        '''
+        cards = [
+            Card(rank = "Ace", suite = "hearts"),
+            Card(rank = "Ace", suite = "clubs"),
+            Card(rank = "5", suite = "spades"),
+            Card(rank = "Ace", suite = "hearts"),
+            Card(rank = "King", suite = "clubs")
+        ]
+        hand = Hand(cards)
+        self.assertEqual(
+            hand.best_rank(),
+            "Three same kind"
+        )
