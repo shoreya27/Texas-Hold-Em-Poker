@@ -26,7 +26,7 @@ class TestHand(unittest.TestCase):
         hand = Hand(cards)
         self.assertEqual(
             hand.best_rank(), 
-            "biggest card"
+            "Highest card"
         )
     
     def test_hand_has_a_pair(self):
@@ -56,7 +56,7 @@ class TestHand(unittest.TestCase):
         hand = Hand(cards)
         self.assertEqual(
             hand.best_rank(),
-            "double pair"
+            "Two Pair"
         )
     
     def test_to_figure_hand_has_three_of_same_kind(self):
@@ -74,5 +74,5 @@ class TestHand(unittest.TestCase):
         hand = Hand(cards)
         self.assertEqual(
             hand.best_rank(),
-            "Three same kind"
+            "Three of kind"
         )
