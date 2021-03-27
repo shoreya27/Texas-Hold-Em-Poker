@@ -18,6 +18,8 @@ class Hand():
     @property
     def _best_rank_validators(self):
         return (
+            ("Straight flush", self._straightflush),
+            ("Four of a kind", self._four_of_a_kind),
             ("Full house", self._fullhouse),
             ("Flush", self._flush),
             ('Straight', self._straight),
@@ -39,8 +41,16 @@ class Hand():
             if validator():
                 return name
     
+    def _straightflush(self):
+        return self._flush() and self._straight()
+    
+    def _four_of_a_kind(self):
+        rank_count_dict = self._filter_rank_count_dict(4)
+        return len(rank_count_dict) == 1
+
     def _fullhouse(self):
         return self._three_of_kind() and self._pair()   
+    
     def _flush(self):
         suite_count_dict = self.create_suite_count_dict
         suit_count_dict = {
