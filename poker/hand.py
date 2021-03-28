@@ -27,7 +27,8 @@ class Hand():
             ('Three of kind', self._three_of_kind),
             ('Two Pair', self._two_pair),
             ('Pair', self._pair),
-            ('Highest card', self._highest_card)
+            ('Highest card', self._highest_card),
+            ('No cards', self._no_card)
         )
 
     def best_rank(self):
@@ -44,6 +45,8 @@ class Hand():
     
     def _royalflush(self):
         is_straight_flush = self._straightflush()
+        if not is_straight_flush:
+            return False
         last_card = self.cards[-1].rank == "Ace"
         return is_straight_flush and last_card
 
@@ -90,7 +93,10 @@ class Hand():
         return  len(pair_rank_count) == 1
 
     def _highest_card(self):
-        return "biggest card"
+        return not self._no_card()
+    
+    def _no_card(self):
+        return len(self.cards) == 0
 
     def _filter_rank_count_dict(self, count):
         return {
