@@ -18,6 +18,7 @@ class Hand():
     @property
     def _best_rank_validators(self):
         return (
+            ("Royal flush", self._royalflush),
             ("Straight flush", self._straightflush),
             ("Four of a kind", self._four_of_a_kind),
             ("Full house", self._fullhouse),
@@ -41,6 +42,11 @@ class Hand():
             if validator():
                 return name
     
+    def _royalflush(self):
+        is_straight_flush = self._straightflush()
+        last_card = self.cards[-1].rank == "Ace"
+        return is_straight_flush and last_card
+
     def _straightflush(self):
         return self._flush() and self._straight()
     
