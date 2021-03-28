@@ -7,6 +7,7 @@ each card suite and rank ,therefore this
 is not a good practice when 1 type of object know
 too much about other class.
 '''
+import random
 class Deck():
     def __init__(self):
         self.cards = []
@@ -14,3 +15,5 @@ class Deck():
     def add_cards(self, cards):
         self.cards.extend(cards)
     
+    def shuffle(self):
+        random.shuffle(self.cards)
