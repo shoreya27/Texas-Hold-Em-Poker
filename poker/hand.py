@@ -11,9 +11,14 @@ to add more
 '''
 
 class Hand():
-    def __init__(self, cards):
-        cards.sort()
-        self.cards = cards
+    def __init__(self):
+        self.cards = []
+
+    def add_cards(self, cards):
+        copy = self.cards[:]
+        copy.extend(cards)
+        copy.sort()
+        self.cards = copy
 
     @property
     def _best_rank_validators(self):
