@@ -5,6 +5,18 @@ import unittest
 
 class TestHand(unittest.TestCase):
 
+    def test_to_check_technical_representation_of_hand(self):
+        hand = Hand()
+        cards = [
+            Card(rank = "7", suite = "spades"),
+            Card(rank = "Ace", suite = "clubs")
+        ]
+        hand.add_cards(cards)
+        self.assertEqual(
+            repr(hand),
+            "7 of spades, Ace of clubs"
+        )
+
     def test_hand_has_no_cards_on_initiaisation(self):
         hand = Hand()
         self.assertEqual(hand.cards, [])

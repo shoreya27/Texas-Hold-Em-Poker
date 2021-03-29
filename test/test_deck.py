@@ -6,6 +6,13 @@ import random
 
 class TestDeck(unittest.TestCase):
 
+    def test_length_of_deck(self):
+        deck = Deck()
+        self.assertEqual(
+            len(deck),
+            0
+        )
+
     def test_deck_cards(self):
         deck = Deck()
         self.assertEqual(
