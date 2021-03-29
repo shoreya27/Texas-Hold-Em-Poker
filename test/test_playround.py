@@ -84,3 +84,21 @@ class TestPlayround(unittest.TestCase):
 
         mock_player1.add_cards.assert_called_with(cards1)
         mock_player2.add_cards.assert_called_with(cards2)
+    
+    def test_remove_players_who_wants_to_fold(self):
+
+        mock_player1 = MagicMock()
+        mock_player2 = MagicMock()
+
+        players = [mock_player1, mock_player2]
+
+        mock_player1.wants_to_fold.return_value = True
+
+        mock_player2.wants_to_fold.return_value = False
+
+        play_ground = PlayGround(deck = Deck(), player=players)
+        play_ground.play()
+        self.assertEqual(
+            play_ground.players,
+            [mock_player2]   
+        )

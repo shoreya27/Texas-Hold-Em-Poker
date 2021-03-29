@@ -29,3 +29,11 @@ class TestPlayer(unittest.TestCase):
         player.add_cards(cards)
 
         hand_mock.add_cards.assert_called_with(cards)
+    
+    def test_player_wants_to_fold_or_not(self):
+        player = Player(name = "shoreya", hand = Hand())
+
+        self.assertEqual(
+            player.wants_to_fold(),
+            False
+        )
