@@ -72,7 +72,7 @@ class TestPlayround(unittest.TestCase):
 
         players = [mock_player1,mock_player2]
         
-        deck_mock.remove_cards.side_effect = [cards1, cards2]
+        deck_mock.remove_cards.side_effect = [cards1, cards2, []]
         
         play_round = PlayGround(deck = deck_mock,player = players)
         play_round.play()
@@ -82,8 +82,10 @@ class TestPlayround(unittest.TestCase):
             ]
         )
 
-        mock_player1.add_cards.assert_called_with(cards1)
-        mock_player2.add_cards.assert_called_with(cards2)
+        mock_player1.add_cards.assert_has_calls(
+            [call(cards1)]
+        )
+        mock_player2.add_cards.assert_has_calls([call(cards2)])
     
     def test_remove_players_who_wants_to_fold(self):
 
@@ -102,3 +104,31 @@ class TestPlayround(unittest.TestCase):
             play_ground.players,
             [mock_player2]   
         )
+    
+    def test_community_cards_are_dealt_to_each_player_flop_round(self):
+
+        mock_player1 = MagicMock()
+        mock_player2 = MagicMock()
+
+        players = [mock_player1, mock_player2]
+
+        mock_player1.wants_to_fold.return_value = False
+
+        mock_player2.wants_to_fold.return_value = False
+        mock_deck = MagicMock()
+        community_card = MagicMock()
+        mock_deck.remove_cards.side_effect = [
+            [],[],community_card
+        ]
+        play_ground = PlayGround(deck = mock_deck, player=players)
+        play_ground.play()
+
+
+        mock_deck.remove_cards.assert_has_calls(
+            [call(3)]
+        )
+
+        mock_player1.add_cards.assert_called_with(community_card)
+        mock_player2.add_cards.assert_called_with(community_card)
+        
+

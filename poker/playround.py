@@ -8,6 +8,7 @@ class PlayGround():
         self._shuffle_deck()
         self._add_two_cards_to_each_player_from_deck()
         self._wager()
+        self._flop_round_give_community_card()
 
     def _shuffle_deck(self):
         self.deck.shuffle()
@@ -26,3 +27,9 @@ class PlayGround():
         for player in self.players:
             if player.wants_to_fold():
                 self.players.remove(player)
+    
+    def _flop_round_give_community_card(self):
+        community_cards = self.deck.remove_cards(3)
+        for player in self.players:
+            player.add_cards(community_cards)
+        
