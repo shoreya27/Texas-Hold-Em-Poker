@@ -52,17 +52,35 @@ class TestPlayround(unittest.TestCase):
         each call(arg) represent 1 call to that
         remove_card function 
         '''
+        mock_card1 = MagicMock()
+        mock_card1.rank = "Ace"
+        mock_card1.suite = "diamonds"
+        mock_card2 = MagicMock()
+        mock_card2.rank = "8"
+        mock_card2.suite = "clubs"
+        mock_card3 = MagicMock()
+        mock_card3.rank = "5"
+        mock_card3.suite = "spades"
+        mock_card4 = MagicMock()
+        mock_card4.rank = "King"
+        mock_card4.suite = "spades"
+        cards1 = [mock_card1 , mock_card2]
+        cards2 = [mock_card3, mock_card4]
         deck_mock = MagicMock()
-        players = [
-            MagicMock(), 
-            MagicMock(),
-            MagicMock()
-        ]
+        mock_player1 = MagicMock()
+        mock_player2 = MagicMock()
+
+        players = [mock_player1,mock_player2]
+        
+        deck_mock.remove_cards.side_effect = [cards1, cards2]
         
         play_round = PlayGround(deck = deck_mock,player = players)
         play_round.play()
         deck_mock.remove_cards.assert_has_calls(
             [call(2), 
-            call(2),
-            call(2)]
+            call(2)
+            ]
         )
+
+        mock_player1.add_cards.assert_called_with(cards1)
+        mock_player2.add_cards.assert_called_with(cards2)
