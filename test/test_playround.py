@@ -72,7 +72,7 @@ class TestPlayround(unittest.TestCase):
 
         players = [mock_player1,mock_player2]
         
-        deck_mock.remove_cards.side_effect = [cards1, cards2, []]
+        deck_mock.remove_cards.side_effect = [cards1, cards2, [], [], []]
         
         play_round = PlayGround(deck = deck_mock,player = players)
         play_round.play()
@@ -105,7 +105,7 @@ class TestPlayround(unittest.TestCase):
             [mock_player2]   
         )
     
-    def test_community_cards_are_dealt_to_each_player_flop_round(self):
+    def test_community_card_3_flop_1_river_1_turn(self):
 
         mock_player1 = MagicMock()
         mock_player2 = MagicMock()
@@ -116,19 +116,20 @@ class TestPlayround(unittest.TestCase):
 
         mock_player2.wants_to_fold.return_value = False
         mock_deck = MagicMock()
-        community_card = MagicMock()
+        flop_cards = MagicMock()
+        river_card = MagicMock()
+        turn_card = MagicMock()
         mock_deck.remove_cards.side_effect = [
-            [],[],community_card
+            [],[],flop_cards,river_card,turn_card
         ]
         play_ground = PlayGround(deck = mock_deck, player=players)
         play_ground.play()
 
 
         mock_deck.remove_cards.assert_has_calls(
-            [call(3)]
+            [call(3), call(1), call(1)]
         )
-
-        mock_player1.add_cards.assert_called_with(community_card)
-        mock_player2.add_cards.assert_called_with(community_card)
-        
-
+        cards = [flop_cards, river_card, turn_card]
+        for card in cards:
+            mock_player1.add_cards.assert_has_calls(card)
+            mock_player2.add_cards.assert_has_calls(card)
