@@ -9,7 +9,7 @@ best rank of hand , This keeps each
 method to small purpose and is flexible
 to add more
 '''
-
+from .validators import HighCardValidator
 class Hand():
     def __init__(self):
         self.cards = []
@@ -37,7 +37,7 @@ class Hand():
             ('Three of kind', self._three_of_kind),
             ('Two Pair', self._two_pair),
             ('Pair', self._pair),
-            ('Highest card', self._highest_card),
+            (HighCardValidator(cards=self.cards).name, HighCardValidator(cards=self.cards).is_valid),
             ('No cards', self._no_card)
         )
 
@@ -101,9 +101,6 @@ class Hand():
     def _pair(self):
         pair_rank_count = self._filter_rank_count_dict(2)
         return  len(pair_rank_count) == 1
-
-    def _highest_card(self):
-        return not self._no_card()
     
     def _no_card(self):
         return len(self.cards) == 0
