@@ -11,7 +11,8 @@ to add more
 '''
 from .validators import (HighCardValidator,
                          NoCardValidator,
-                         PairValidator)
+                         PairValidator,
+                         TwoPairValidator)
 class Hand():
     def __init__(self):
         self.cards = []
@@ -37,7 +38,7 @@ class Hand():
             ("Flush", self._flush),
             ('Straight', self._straight),
             ('Three of kind', self._three_of_kind),
-            ('Two Pair', self._two_pair),
+            (TwoPairValidator(cards=self.cards).name, TwoPairValidator(cards=self.cards).is_valid),
             ('Pair', PairValidator(cards=self.cards).is_valid),
             (HighCardValidator(cards=self.cards).name, HighCardValidator(cards=self.cards).is_valid),
             (NoCardValidator(cards = self.cards).name, NoCardValidator(cards = self.cards).is_valid)
@@ -96,9 +97,6 @@ class Hand():
         third_rank_of_same_kind = self._filter_rank_count_dict(3)
         return len(third_rank_of_same_kind) == 1
     
-    def _two_pair(self):
-        pair_rank_count = self._filter_rank_count_dict(2)
-        return  len(pair_rank_count) == 2   
 
     def _filter_rank_count_dict(self, count):
         return {
