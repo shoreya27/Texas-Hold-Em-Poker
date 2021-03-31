@@ -35,13 +35,6 @@ class TestHand(unittest.TestCase):
             cards
         )
 
-    def test_hand_has_no_cards(self):
-        hand = Hand()
-        self.assertEqual(
-            hand.best_rank(),
-            "No cards"
-        )
-
     
     def test_hand_has_a_pair(self):
         cards = [
