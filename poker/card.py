@@ -35,4 +35,6 @@ class Card():
         return self.rank == other.rank and self.suite == other.suite
     
     def __lt__(self, other):
+        if self.rank_index == other.rank_index:
+            return self.suite < other.suite
         return self.rank_index < other.rank_index
