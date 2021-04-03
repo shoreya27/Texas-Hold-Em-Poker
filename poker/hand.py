@@ -15,7 +15,8 @@ from .validators import (HighCardValidator,
                          TwoPairValidator,
                          ThreeOfAKindValidator ,
                          StraightValidator, 
-                         FlushValidator)
+                         FlushValidator,
+                         FullHouseValidator)
 class Hand():
     def __init__(self):
         self.cards = []
@@ -37,7 +38,7 @@ class Hand():
             ("Royal flush", self._royalflush),
             ("Straight flush", self._straightflush),
             ("Four of a kind", self._four_of_a_kind),
-            ("Full house", self._fullhouse),
+            (FullHouseValidator(cards = self.cards).name, FullHouseValidator(cards = self.cards).is_valid),
             ("Flush", FlushValidator(cards = self.cards).is_valid ),
             ('Straight', StraightValidator(cards = self.cards).is_valid),
             (ThreeOfAKindValidator(cards=self.cards).name, ThreeOfAKindValidator(cards=self.cards).is_valid),
@@ -73,8 +74,6 @@ class Hand():
         rank_count_dict = self._filter_rank_count_dict(4)
         return len(rank_count_dict) == 1
 
-    def _fullhouse(self):
-        return ThreeOfAKindValidator(cards=self.cards).is_valid() and PairValidator(cards=self.cards).is_valid() 
     def _filter_rank_count_dict(self, count):
         return {
             rank : rank_count

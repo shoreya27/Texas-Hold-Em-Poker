@@ -6,3 +6,4 @@ from .two_pair_validator import TwoPairValidator
 from .highcardvalidator import HighCardValidator
 from .no_card_validator import NoCardValidator
 from .pair_validator import PairValidator
+from .full_house_validator import FullHouseValidator
