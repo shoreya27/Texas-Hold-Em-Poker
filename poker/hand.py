@@ -12,7 +12,8 @@ to add more
 from .validators import (HighCardValidator,
                          NoCardValidator,
                          PairValidator,
-                         TwoPairValidator)
+                         TwoPairValidator,
+                         ThreeOfAKindValidator)
 class Hand():
     def __init__(self):
         self.cards = []
@@ -37,7 +38,7 @@ class Hand():
             ("Full house", self._fullhouse),
             ("Flush", self._flush),
             ('Straight', self._straight),
-            ('Three of kind', self._three_of_kind),
+            (ThreeOfAKindValidator(cards=self.cards).name, ThreeOfAKindValidator(cards=self.cards).is_valid),
             (TwoPairValidator(cards=self.cards).name, TwoPairValidator(cards=self.cards).is_valid),
             ('Pair', PairValidator(cards=self.cards).is_valid),
             (HighCardValidator(cards=self.cards).name, HighCardValidator(cards=self.cards).is_valid),
@@ -71,7 +72,7 @@ class Hand():
         return len(rank_count_dict) == 1
 
     def _fullhouse(self):
-        return self._three_of_kind() and PairValidator(cards=self.cards).is_valid() 
+        return ThreeOfAKindValidator(cards=self.cards).is_valid() and PairValidator(cards=self.cards).is_valid() 
     
     def _flush(self):
         suite_count_dict = self.create_suite_count_dict
@@ -92,10 +93,6 @@ class Hand():
                             range(starting_end,ending)
                                 )
         return rank_indexes == rank_indexes_range
-
-    def _three_of_kind(self):
-        third_rank_of_same_kind = self._filter_rank_count_dict(3)
-        return len(third_rank_of_same_kind) == 1
     
 
     def _filter_rank_count_dict(self, count):

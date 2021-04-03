@@ -1,3 +1,4 @@
+from .threeofakindvalidator import ThreeOfAKindValidator
 from .rankvalidator import RankValidator
 from .two_pair_validator import TwoPairValidator
 from .highcardvalidator import HighCardValidator
