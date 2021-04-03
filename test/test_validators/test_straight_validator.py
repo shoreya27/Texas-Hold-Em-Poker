@@ -31,6 +31,18 @@ class TestStraight(unittest.TestCase):
             True
         )
     
+    def test_2_cards_cant_be_straight(self):
+        cards = [
+            Card(rank = "5", suite = "diamonds"),
+            Card(rank = "6", suite = "hearts"),
+        ]
+        validator = StraightValidator(cards = cards)
+        self.assertEqual(
+            validator.is_valid(),
+            False
+        )
+    
+    
     def test_valid_cards(self):
         validator = StraightValidator(cards = self.cards)
         self.assertEqual(

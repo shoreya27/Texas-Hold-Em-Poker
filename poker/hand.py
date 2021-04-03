@@ -14,7 +14,8 @@ from .validators import (HighCardValidator,
                          PairValidator,
                          TwoPairValidator,
                          ThreeOfAKindValidator ,
-                         StraightValidator)
+                         StraightValidator, 
+                         FlushValidator)
 class Hand():
     def __init__(self):
         self.cards = []
@@ -37,7 +38,7 @@ class Hand():
             ("Straight flush", self._straightflush),
             ("Four of a kind", self._four_of_a_kind),
             ("Full house", self._fullhouse),
-            ("Flush", self._flush),
+            ("Flush", FlushValidator(cards = self.cards).is_valid ),
             ('Straight', StraightValidator(cards = self.cards).is_valid),
             (ThreeOfAKindValidator(cards=self.cards).name, ThreeOfAKindValidator(cards=self.cards).is_valid),
             (TwoPairValidator(cards=self.cards).name, TwoPairValidator(cards=self.cards).is_valid),
@@ -66,7 +67,7 @@ class Hand():
         return is_straight_flush and last_card
 
     def _straightflush(self):
-        return self._flush() and StraightValidator(cards = self.cards).is_valid()
+        return FlushValidator(cards = self.cards).is_valid and StraightValidator(cards = self.cards).is_valid()
     
     def _four_of_a_kind(self):
         rank_count_dict = self._filter_rank_count_dict(4)
@@ -74,38 +75,12 @@ class Hand():
 
     def _fullhouse(self):
         return ThreeOfAKindValidator(cards=self.cards).is_valid() and PairValidator(cards=self.cards).is_valid() 
-    
-    def _flush(self):
-        suite_count_dict = self.create_suite_count_dict
-        suit_count_dict = {
-            suite:count
-            for suite, count in suite_count_dict.items()
-            if count >= 5
-        }
-        return len(suit_count_dict) == 1
-
-
     def _filter_rank_count_dict(self, count):
         return {
             rank : rank_count
             for rank, rank_count in self.create_rankcount_dict.items()
             if rank_count == count
         }
-
-    @property
-    def create_suite_count_dict(self):
-        card_suite_count = dict()
-        for card in self.cards:
-            '''
-            setdefault(key, default value) sets the key
-            to default value if that key is not
-            present in dict
-            '''
-            card_suite_count.setdefault(card.suite, 0)
-            card_suite_count[card.suite] += 1
-        
-        return card_suite_count        
-
     @property
     def create_rankcount_dict(self):
         card_rank_count = dict()

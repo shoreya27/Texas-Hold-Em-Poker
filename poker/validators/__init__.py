@@ -1,3 +1,4 @@
+from .flush_validator import FlushValidator
 from .straightvalidator import StraightValidator
 from .threeofakindvalidator import ThreeOfAKindValidator
 from .rankvalidator import RankValidator

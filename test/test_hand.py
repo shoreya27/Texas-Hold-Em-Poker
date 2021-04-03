@@ -60,36 +60,6 @@ class TestHand(unittest.TestCase):
         ]
         )
     
-    
-    def test_2_cards_cant_be_straight(self):
-
-        cards = [
-            Card(rank = "5", suite = "diamonds"),
-            Card(rank = "6", suite = "hearts"),
-        ]
-        hand = Hand()
-        hand.add_cards(cards)
-        self.assertEqual(
-            hand.best_rank(),
-            "Highest card"
-        )
-    
-    def test_to_figure_flush_is_best_rank(self):
-        '''
-        flush is when min 5 cards
-        have same suite
-        '''
-        cards = [
-            Card(rank = rank, suite = "hearts")
-            for rank in ["3", "4", "5", "10", "7"]
-        ]
-        hand = Hand()
-        hand.add_cards(cards)
-        self.assertEqual(
-            hand.best_rank(),
-            "Flush"
-        )
-    
     def test_to_figure_fullhouse_is_best_rank(self):
         '''
         full house is when there is 3 card of same rank
