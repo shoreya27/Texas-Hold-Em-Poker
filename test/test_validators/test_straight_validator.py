@@ -20,7 +20,8 @@ class TestStraight(unittest.TestCase):
             self.six,
             self.seven,
             self.eight,
-            self.nine
+            self.nine,
+            self.ten
         ]    
 
     def test_to_figure_hand_has_a_straight(self):
@@ -30,10 +31,16 @@ class TestStraight(unittest.TestCase):
             True
         )
     
-    # def test_valid_cards(self):
-    #     validator = StraightValidator(cards = self.cards)
-    #     self.assertEqual(
-    #         validator.is_valid(),
-    #         True
-    #     )
+    def test_valid_cards(self):
+        validator = StraightValidator(cards = self.cards)
+        self.assertEqual(
+            validator.valid_cards(),
+            [
+            self.six,
+            self.seven,
+            self.eight,
+            self.nine,
+            self.ten 
+            ]
+        )
     

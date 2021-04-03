@@ -13,7 +13,8 @@ from .validators import (HighCardValidator,
                          NoCardValidator,
                          PairValidator,
                          TwoPairValidator,
-                         ThreeOfAKindValidator)
+                         ThreeOfAKindValidator ,
+                         StraightValidator)
 class Hand():
     def __init__(self):
         self.cards = []
@@ -37,7 +38,7 @@ class Hand():
             ("Four of a kind", self._four_of_a_kind),
             ("Full house", self._fullhouse),
             ("Flush", self._flush),
-            ('Straight', self._straight),
+            ('Straight', StraightValidator(cards = self.cards).is_valid),
             (ThreeOfAKindValidator(cards=self.cards).name, ThreeOfAKindValidator(cards=self.cards).is_valid),
             (TwoPairValidator(cards=self.cards).name, TwoPairValidator(cards=self.cards).is_valid),
             ('Pair', PairValidator(cards=self.cards).is_valid),
@@ -65,7 +66,7 @@ class Hand():
         return is_straight_flush and last_card
 
     def _straightflush(self):
-        return self._flush() and self._straight()
+        return self._flush() and StraightValidator(cards = self.cards).is_valid()
     
     def _four_of_a_kind(self):
         rank_count_dict = self._filter_rank_count_dict(4)
@@ -83,17 +84,6 @@ class Hand():
         }
         return len(suit_count_dict) == 1
 
-    def _straight(self):
-        if len(self.cards) < 5:
-            return False
-        rank_indexes = [card.rank_index for card in self.cards]
-        starting_end = rank_indexes[0]
-        ending       = rank_indexes[-1] + 1
-        rank_indexes_range = list(
-                            range(starting_end,ending)
-                                )
-        return rank_indexes == rank_indexes_range
-    
 
     def _filter_rank_count_dict(self, count):
         return {
