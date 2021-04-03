@@ -60,25 +60,6 @@ class TestHand(unittest.TestCase):
         ]
         )
 
-    def test_to_figure_four_of_a_kind_is_best_rank(self):
-        '''
-        four of a kind occurs when there are
-        4 cads of same rank
-        '''
-        cards = [
-            Card(rank = "4", suite = "hearts"),
-            Card(rank = "4", suite = "diamonds"),
-            Card(rank = "4", suite = "clubs"),
-            Card(rank = "4", suite = "spades"),
-            Card(rank = "2", suite = "spades"),
-        ]
-        hand = Hand()
-        hand.add_cards(cards)
-        self.assertEqual(
-            hand.best_rank(),
-            "Four of a kind"
-        )
-    
     def test_to_straight_flush_is_best_rank(self):
         '''
         straight flush occurs when

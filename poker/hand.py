@@ -16,7 +16,8 @@ from .validators import (HighCardValidator,
                          ThreeOfAKindValidator ,
                          StraightValidator, 
                          FlushValidator,
-                         FullHouseValidator)
+                         FullHouseValidator,
+                         FourOfAKindValidator)
 class Hand():
     def __init__(self):
         self.cards = []
@@ -37,7 +38,7 @@ class Hand():
         return (
             ("Royal flush", self._royalflush),
             ("Straight flush", self._straightflush),
-            ("Four of a kind", self._four_of_a_kind),
+            (FourOfAKindValidator(cards = self.cards).name, FourOfAKindValidator(cards = self.cards).is_valid),
             (FullHouseValidator(cards = self.cards).name, FullHouseValidator(cards = self.cards).is_valid),
             ("Flush", FlushValidator(cards = self.cards).is_valid ),
             ('Straight', StraightValidator(cards = self.cards).is_valid),
@@ -69,27 +70,3 @@ class Hand():
 
     def _straightflush(self):
         return FlushValidator(cards = self.cards).is_valid and StraightValidator(cards = self.cards).is_valid()
-    
-    def _four_of_a_kind(self):
-        rank_count_dict = self._filter_rank_count_dict(4)
-        return len(rank_count_dict) == 1
-
-    def _filter_rank_count_dict(self, count):
-        return {
-            rank : rank_count
-            for rank, rank_count in self.create_rankcount_dict.items()
-            if rank_count == count
-        }
-    @property
-    def create_rankcount_dict(self):
-        card_rank_count = dict()
-        for card in self.cards:
-            '''
-            setdefault(key, default value) sets the key
-            to default value if that key is not
-            present in dict
-            '''
-            card_rank_count.setdefault(card.rank, 0)
-            card_rank_count[card.rank] += 1
-        
-        return card_rank_count
