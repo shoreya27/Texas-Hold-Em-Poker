@@ -60,22 +60,6 @@ class TestHand(unittest.TestCase):
         ]
         )
     
-    def test_to_figure_hand_has_a_straight(self):
-
-        cards = [
-            Card(rank = "5", suite = "diamonds"),
-            Card(rank = "6", suite = "hearts"),
-            Card(rank = "7", suite = "clubs"),
-            Card(rank = "8", suite = "spades"),
-            Card(rank = "9", suite = "diamonds")
-        ]
-
-        hand = Hand()
-        hand.add_cards(cards)
-        self.assertEqual(
-            hand.best_rank(),
-            "Straight"
-        )
     
     def test_2_cards_cant_be_straight(self):
 
