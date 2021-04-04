@@ -17,7 +17,8 @@ from .validators import (HighCardValidator,
                          StraightValidator, 
                          FlushValidator,
                          FullHouseValidator,
-                         FourOfAKindValidator)
+                         FourOfAKindValidator,
+                         StraightFlushValidator)
 class Hand():
     def __init__(self):
         self.cards = []
@@ -37,7 +38,7 @@ class Hand():
     def _best_rank_validators(self):
         return (
             ("Royal flush", self._royalflush),
-            ("Straight flush", self._straightflush),
+            ("Straight flush", StraightFlushValidator(cards= self.cards).is_valid),
             (FourOfAKindValidator(cards = self.cards).name, FourOfAKindValidator(cards = self.cards).is_valid),
             (FullHouseValidator(cards = self.cards).name, FullHouseValidator(cards = self.cards).is_valid),
             ("Flush", FlushValidator(cards = self.cards).is_valid ),
@@ -62,11 +63,10 @@ class Hand():
                 return name
     
     def _royalflush(self):
-        is_straight_flush = self._straightflush()
+        is_straight_flush = StraightFlushValidator(cards=self.cards).is_valid()
         if not is_straight_flush:
             return False
         last_card = self.cards[-1].rank == "Ace"
         return is_straight_flush and last_card
 
-    def _straightflush(self):
-        return FlushValidator(cards = self.cards).is_valid and StraightValidator(cards = self.cards).is_valid()
+    

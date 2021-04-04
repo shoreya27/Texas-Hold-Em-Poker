@@ -60,27 +60,6 @@ class TestHand(unittest.TestCase):
         ]
         )
 
-    def test_to_straight_flush_is_best_rank(self):
-        '''
-        straight flush occurs when
-        all rank are sequential and
-        suite is same
-        '''
-        cards = [
-            Card(rank = "4", suite = "hearts"),
-            Card(rank = "5", suite = "hearts"),
-            Card(rank = "6", suite = "hearts"),
-            Card(rank = "7", suite = "hearts"),
-            Card(rank = "8", suite = "hearts"),
-        ]
-        hand = Hand()
-        hand.add_cards(cards)
-        self.assertEqual(
-            hand.best_rank(),
-            "Straight flush"
-        )
-
-
     def test_to_royal_flush_is_best_rank(self):
         '''
         royal flush occurs when
