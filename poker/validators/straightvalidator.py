@@ -3,6 +3,7 @@ class StraightValidator(StraightAndStraighFlushValidator):
     
     def __init__(self, cards):
         self.cards = cards
+        self.name  = "Straight"
     
     def is_valid(self):
         if self._get_collection_of_straight_cards:

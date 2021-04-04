@@ -59,3 +59,17 @@ class TestHand(unittest.TestCase):
 
         ]
         )
+    
+        def test_best_Rank(self):
+            cards = [
+            Card(rank = "5", suite = "hearts"),
+            Card(rank = "Ace", suite = "clubs"),
+            Card(rank = "King", suite = "clubs"),
+        ]
+
+        hand = Hand()
+        hand.add_cards(cards)
+        self.assertEqual(
+            hand.best_rank(),
+            "Highest card"
+        )

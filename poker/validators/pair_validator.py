@@ -3,6 +3,7 @@ class PairValidator(RankValidator):
     
     def __init__(self, cards):
         self.cards = cards
+        self.name  = "Pair"
     
     def is_valid(self):
         pair_rank_count = self._filter_rank_count_dict(2)

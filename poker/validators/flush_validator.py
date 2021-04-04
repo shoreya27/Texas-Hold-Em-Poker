@@ -2,6 +2,7 @@ class FlushValidator():
     
     def __init__(self, cards):
         self.cards = cards
+        self.name = "Flush"
     
     def is_valid(self):
         return len(self._suite_count_dict) == 1
