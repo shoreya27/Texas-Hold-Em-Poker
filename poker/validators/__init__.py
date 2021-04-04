@@ -10,3 +10,4 @@ from .pair_validator import PairValidator
 from .full_house_validator import FullHouseValidator
 from .four_of_a_kind_vaidator import FourOfAKindValidator
 from .straigh_flush_validator import StraightFlushValidator
+from .royal_flush_validator import RoyalFlushValidator
