@@ -12,3 +12,11 @@ class Player():
     
     def wants_to_fold(self):
         return False
+    
+    def __gt__(self, other):
+        current_player_best_rank_position = self.best_hand()[0]
+        other_player_best_rank_position = other.best_hand()[0]
+
+        if current_player_best_rank_position < other_player_best_rank_position:
+            return True
+        return False

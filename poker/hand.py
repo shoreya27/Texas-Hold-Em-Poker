@@ -31,8 +31,8 @@ class Hand():
         ThreeOfAKindValidator,
         TwoPairValidator,
         PairValidator,
-        NoCardValidator,
-        HighCardValidator
+        HighCardValidator,
+        NoCardValidator
     )
 
     def __init__(self):
@@ -51,7 +51,8 @@ class Hand():
 
     def best_rank(self):
 
-        for validator_klass in self.VALIDATORS:
+        for index, validator_klass in enumerate(self.VALIDATORS):
             obj = validator_klass(cards = self.cards)
             if obj.is_valid():
-                return obj.name
+                return index, obj.name, obj.valid_cards()
+            

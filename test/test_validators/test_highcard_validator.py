@@ -28,6 +28,6 @@ class TestHighCardValidator(unittest.TestCase):
 
         high_card = HighCardValidator(cards = cards)
         self.assertEqual(
-            high_card.highest_card(),
+            high_card.valid_cards(),
             [ace_of_diamond]
         )

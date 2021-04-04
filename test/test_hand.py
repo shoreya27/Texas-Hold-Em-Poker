@@ -71,5 +71,5 @@ class TestHand(unittest.TestCase):
         hand.add_cards(cards)
         self.assertEqual(
             hand.best_rank(),
-            "Highest card"
+            (9,"Highest card",[Card(rank = "Ace", suite = "clubs")])
         )
